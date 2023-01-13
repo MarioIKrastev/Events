@@ -1,0 +1,18 @@
+html,
+body {
+  padding: 0;
+  margin: 0;
+  background: linear-gradient(to left bottom, #73A1C7, #2B6DA3);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+* {
+  box-sizing: border-box;
+}
+#root{
+  height: 100vh;
+}
