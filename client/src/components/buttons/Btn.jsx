@@ -1,6 +1,6 @@
 import { Button, useTheme } from '@mui/material'
 
-export default function FormButton({text, ...rest}) {
+export default function Btn({text, ...rest}) {
   const { sx } = rest;
     const theme = useTheme();
     const btn = {"&:hover": {backgroundColor: "transparent", color: '#FFF' }, p: 0, m: 0 }

@@ -14,7 +14,8 @@ export const validate = (prop) => {
                 .min(8, 'Must be more then 7 characters')
                 .required('Password is required')
         });
-    } else {
+    }
+    if (prop === 'signin') {
         return Yup.object({
             email: Yup.string()
                 .email('Invalid email')

@@ -7,7 +7,7 @@ import { useAuthMutation } from "../../mutations/AuthMutation";
 import { useNavigate } from "react-router-dom";
 import { styles } from './styles'
 
-import FormButton from "../buttons/FormButton";
+import Btn from "../buttons/Btn";
 import CardWrapper from "../Cards";
 import FormSpinner from "../spinners/FormSpinner";
 
@@ -39,7 +39,7 @@ export default function SignUp() {
   })
   return (
     <>
-      <FormButton text='Sign Up' sx={{ fontSize: '54px' }} variant='outlined' onClick={openHandler}/>
+      <Btn text='Sign Up' sx={{ fontSize: '54px' }} variant='outlined' onClick={openHandler}/>
       <Modal
         open={open}
         onClose={handleClose}
@@ -57,7 +57,7 @@ export default function SignUp() {
                       <Typography variant="h4" component="h1" color={theme.palette.secondary.main}>
                         Successful
                       </Typography>
-                      <FormButton text='Sign In' onClick={()=> navigation('/signin')}/>
+                      <Btn text='Sign In' onClick={()=> navigation('/signin')}/>
                     </CardWrapper>
                   ) : (
                     <CardWrapper>
@@ -111,8 +111,8 @@ export default function SignUp() {
                           />
                         </FormControl>
                         <Box sx={{ width: '100%', display: 'flex' }} justifyContent='space-between'>
-                          <FormButton text='Register' type='submit' />
-                          <FormButton text='Clear' onClick={() => { reset(); formik.resetForm(); }} />
+                          <Btn text='Register' type='submit' />
+                          <Btn text='Clear' onClick={() => { reset(); formik.resetForm(); }} />
                         </Box>
                       </Box>
                     </CardWrapper>
