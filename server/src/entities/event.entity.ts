@@ -1,4 +1,4 @@
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 import { EventType } from 'src/enum';
 import { User } from './auth.entity';
 
@@ -7,8 +7,8 @@ export class Event {
     @PrimaryGeneratedColumn({
         name: 'event_id',
     })
-    id:string
-    
+    id: string
+
     @Column({
         name: 'title',
         nullable: false,
@@ -27,25 +27,27 @@ export class Event {
         enum: EventType,
         default: EventType.DEFAULT
     })
+    type: EventType
 
     @Column({
         name: 'day',
-        nullable:false,
+        nullable: false,
     })
     day: string
 
     @Column({
         name: 'month',
-        nullable:false,
+        nullable: false,
     })
     month: string
 
     @Column({
         name: 'year',
-        nullable:false,
+        nullable: false,
     })
     year: string
 
     @ManyToOne(() => User, (user) => user.events)
-    user: User;
+    @JoinColumn({ name: 'added_by' })
+    user: User
 }

@@ -1,12 +1,11 @@
+import { EventDto } from './dto';
 import { EventsService } from './events.service';
-import { CreateEventDto } from './dto/create-event.dto';
-import { UpdateEventDto } from './dto/update-event.dto';
 export declare class EventsController {
-    private readonly eventsService;
+    private eventsService;
     constructor(eventsService: EventsService);
-    create(createEventDto: CreateEventDto): string;
-    findAll(): string;
+    postEvent(dto: EventDto): string;
+    getAll(): string;
     findOne(id: string): string;
-    update(id: string, updateEventDto: UpdateEventDto): string;
+    update(id: string, dto: EventDto): string;
     remove(id: string): string;
 }

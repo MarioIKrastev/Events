@@ -9,65 +9,69 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.User = void 0;
-const enum_1 = require("../enum");
+exports.Event = void 0;
 const typeorm_1 = require("typeorm");
-const event_entity_1 = require("./event.entity");
-let User = class User {
+const enum_1 = require("../enum");
+const auth_entity_1 = require("./auth.entity");
+let Event = class Event {
 };
 __decorate([
     (0, typeorm_1.PrimaryGeneratedColumn)({
-        name: 'user_id',
+        name: 'event_id',
     }),
     __metadata("design:type", String)
-], User.prototype, "id", void 0);
+], Event.prototype, "id", void 0);
 __decorate([
     (0, typeorm_1.Column)({
-        name: 'username',
+        name: 'title',
         nullable: false,
-        default: '',
     }),
     __metadata("design:type", String)
-], User.prototype, "username", void 0);
+], Event.prototype, "title", void 0);
 __decorate([
     (0, typeorm_1.Column)({
-        name: 'role',
+        name: 'description',
+        nullable: false,
+    }),
+    __metadata("design:type", String)
+], Event.prototype, "description", void 0);
+__decorate([
+    (0, typeorm_1.Column)({
+        name: 'event-type',
         type: 'enum',
-        enum: enum_1.Role,
-        default: enum_1.Role.REG,
+        enum: enum_1.EventType,
+        default: enum_1.EventType.DEFAULT
     }),
     __metadata("design:type", String)
-], User.prototype, "role", void 0);
+], Event.prototype, "type", void 0);
 __decorate([
     (0, typeorm_1.Column)({
-        name: 'email',
+        name: 'day',
         nullable: false,
-        unique: true,
-        default: '',
     }),
     __metadata("design:type", String)
-], User.prototype, "email", void 0);
+], Event.prototype, "day", void 0);
 __decorate([
     (0, typeorm_1.Column)({
-        name: 'password',
+        name: 'month',
         nullable: false,
-        default: '',
     }),
     __metadata("design:type", String)
-], User.prototype, "password", void 0);
+], Event.prototype, "month", void 0);
 __decorate([
     (0, typeorm_1.Column)({
-        name: 'rfToken',
-        default: '',
+        name: 'year',
+        nullable: false,
     }),
     __metadata("design:type", String)
-], User.prototype, "refreshToken", void 0);
+], Event.prototype, "year", void 0);
 __decorate([
-    (0, typeorm_1.OneToMany)(() => event_entity_1.Event, (event) => event.user),
-    __metadata("design:type", Array)
-], User.prototype, "events", void 0);
-User = __decorate([
+    (0, typeorm_1.ManyToOne)(() => auth_entity_1.User, (user) => user.events),
+    (0, typeorm_1.JoinColumn)({ name: 'added_by' }),
+    __metadata("design:type", auth_entity_1.User)
+], Event.prototype, "user", void 0);
+Event = __decorate([
     (0, typeorm_1.Entity)()
-], User);
-exports.User = User;
-//# sourceMappingURL=auth.entity.js.map
+], Event);
+exports.Event = Event;
+//# sourceMappingURL=event.entity.js.map

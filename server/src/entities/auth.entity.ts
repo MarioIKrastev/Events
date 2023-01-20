@@ -45,11 +45,6 @@ export class User {
   })
   refreshToken: string;
 
-  @Column({
-    name: 'events',
-    default: null,
-    array: true,
-  })
   @OneToMany(() => Event, (event) => event.user)
   events: Event[];
 }

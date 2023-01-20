@@ -1,20 +1,25 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, HttpCode, HttpStatus, Res } from '@nestjs/common';
+import { Response } from 'express';
+import { Public } from 'src/common/decorators';
+import { EventDto } from './dto';
 import { EventsService } from './events.service';
-import { CreateEventDto } from './dto/create-event.dto';
-import { UpdateEventDto } from './dto/update-event.dto';
 
 @Controller('events')
 export class EventsController {
-  constructor(private readonly eventsService: EventsService) {}
+  constructor(private eventsService: EventsService) { }
 
-  @Post()
-  create(@Body() createEventDto: CreateEventDto) {
-    return this.eventsService.create(createEventDto);
+  @Public()
+  @Post('events/add')
+  @HttpCode(HttpStatus.OK)
+  postEvent(@Body() dto: EventDto) {
+    return this.eventsService.postEvent(dto);
   }
 
-  @Get()
-  findAll() {
-    return this.eventsService.findAll();
+  @Public()
+  @Get('events')
+  @HttpCode(HttpStatus.OK)
+  getAll() {
+    return this.eventsService.getAll();
   }
 
   @Get(':id')
@@ -23,8 +28,8 @@ export class EventsController {
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateEventDto: UpdateEventDto) {
-    return this.eventsService.update(+id, updateEventDto);
+  update(@Param('id') id: string, @Body() dto: EventDto) {
+    return this.eventsService.update(+id, dto);
   }
 
   @Delete(':id')
