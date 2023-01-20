@@ -7,6 +7,8 @@ import entities from './typeorm';
 import { APP_GUARD } from '@nestjs/core';
 import { AtGuard } from './common/guards';
 import { SeedsModule } from './seeds/seeds.module';
+import { MoController } from './s/mo/mo.controller';
+import { EventsModule } from './events/events.module';
 
 @Module({
   imports: [
@@ -27,8 +29,9 @@ import { SeedsModule } from './seeds/seeds.module';
     }),
     AuthModule,
     SeedsModule,
+    EventsModule,
   ],
-  controllers: [],
+  controllers: [MoController],
   providers: [
     // provides reflector to AtGuard for using methods like `canActivate`
     // because AtGuard is global this method allows to ignore this guard for some routes

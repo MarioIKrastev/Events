@@ -1,5 +1,6 @@
 import { Role } from 'src/enum';
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { Event } from './event.entity';
 
 @Entity()
 export class User {
@@ -43,4 +44,12 @@ export class User {
     default: '',
   })
   refreshToken: string;
+
+  @Column({
+    name: 'events',
+    default: null,
+    array: true,
+  })
+  @OneToMany(() => Event, (event) => event.user)
+  events: Event[];
 }
