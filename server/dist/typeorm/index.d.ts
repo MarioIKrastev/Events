@@ -1,4 +1,5 @@
 import { User } from 'src/entities/auth.entity';
-declare const entities: (typeof User)[];
-export { User };
+import { Event } from 'src/entities/event.entity';
+declare const entities: (typeof Event | typeof User)[];
+export { User, Event };
 export default entities;
