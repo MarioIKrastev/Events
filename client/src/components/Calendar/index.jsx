@@ -1,16 +1,23 @@
+import { useState } from 'react';
 import * as dateFns from 'date-fns'
-import { Box, Button, List, ListItem } from '@mui/material';
+import { utcToZonedTime } from 'date-fns-tz';
+import bg from 'date-fns/locale/bg'
+import { Box, Button, List, ListItem, useTheme, Icon } from '@mui/material';
+
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import ArrowForwardIosIcon from '@mui/icons-material/ArrowForwardIos';
-import { Icon } from '@mui/material';
-import { useState } from 'react';
+
+import { styles } from './styles';
 
 export default function Calendar() {
+    const { cell, start, center, end, weekDays, weekDay } = styles;
+    
+    const theme = useTheme();
+    const timeZone = 'Europe/Sofia';
     const [state, setState] = useState({
-        currentMonth: new Date(),
-        selectedDate: new Date()
+        currentMonth: utcToZonedTime(new Date(), timeZone, {weekStartsOn:5, locale: bg}),
+        selectedDate: utcToZonedTime(new Date(), timeZone, {weekStartsOn:5, locale: bg})
     })
-
     function prevMonth() {
         setState({ ...state, currentMonth: dateFns.subMonths(state.currentMonth, 1) })
     }
@@ -20,42 +27,27 @@ export default function Calendar() {
     const onDateClick = day => {
         state.selectedDate = day;
     }
-    const monthDays = () => {
+    const week = () => {
         const dayFormat = 'EEEE';
         const days = [];
 
         const startDay = dateFns.startOfWeek(state.currentMonth);
 
-        for (let i = 0; i < 7; i++) {
+        for (let i = 1; i <= 7; i++) {
             days.push(
-                <ListItem disablePadding={true} key={i} sx={{
-                    flexGrow: 1,
-                    flexBasis: 0,
-                    maxWidth: '100%',
-                    justifyContent: 'center',
-                    textAlign: 'center'
-                }}>
+                <ListItem disablePadding={true} key={i} sx={weekDay}>
                     {dateFns.format(dateFns.addDays(startDay, i), dayFormat)}
                 </ListItem>
             )
         }
-        return <List sx={{
-            mb: 3,
-            p: 0,
-            display: "flex",
-            flexDirection: "row",
-            flexWrap: 'wrap',
-            width: "100%",
-            textTransform: 'uppercase',
-            fontSize: '14px',
-        }}>{days}</List>
+        return <List sx={weekDays}>{days}</List>
     }
 
     function cells() {
         const { currentMonth, selectedDate } = state;
         const startMonth = dateFns.startOfMonth(currentMonth);
         const endMonth = dateFns.endOfMonth(startMonth);
-        const startDay = dateFns.startOfWeek(startMonth);
+        const startDay = dateFns.startOfWeek(startMonth, {weekStartsOn: 1});
         const endDay = dateFns.endOfWeek(endMonth);
 
         const format = 'd';
@@ -70,14 +62,13 @@ export default function Calendar() {
                 const cloneDay = day;
 
                 days.push(
-                    <ListItem disablePadding={true}>
-                        <Button key={day} variant='outlined' color='secondary' sx={{
-                            flexGrow: 1,
-                            flexBasis: 0,
-                            maxWidth: '100%',
-                            borderRadius: 0,
-                        }}>
-                            <span>{formattedDay}</span>
+                    <ListItem disablePadding={true} sx={{ minHeight: '6em' }} key={i}>
+                        <Button key={day} variant='outlined' sx={[cell,{
+                            color: `${!dateFns.isSameMonth(day, startMonth) ? theme.palette.primary.dark : theme.palette.secondary.main}`,
+                            background: `${!dateFns.isSameMonth(day, startMonth) ? 'linear-gradient(0deg, rgba(115,161,199,0.8) 5%, rgba(43,109,163,0.8) 80%);' : dateFns.isSameDay(day, selectedDate) ? 'rgba(255, 255, 255, 0.3)' : "" } `,
+                            borderColor: `${dateFns.isSameDay(day, selectedDate) ? 'rgba(255,255,255)' : '' }`
+                        }]}>
+                            <span style={{ alignSelf: 'end' }}>{formattedDay}</span>
                         </Button>
                     </ListItem>
                 );
@@ -90,42 +81,24 @@ export default function Calendar() {
             );
             days = [];
         }
-        return <Box disablePadding={true} sx={{ zIndex: 4 }}>{rows}</Box>
+        return <List disablePadding={true} sx={{ zIndex: 4 }}>{rows}</List>
     }
 
 
     function header() {
         return (
             <Box sx={{ display: 'flex', flexDirection: 'row', mb: 3 }}>
-                <Box sx={{
-                    flexGrow: 1,
-                    flexBasis: 0,
-                    maxWidth: '100%',
-                    justifyContent: 'flex-start',
-                    textAlign: 'left',
-                }}>
+                <Box sx={start}>
                     <Box onClick={prevMonth} sx={{ cursor: 'pointer' }}>
                         <Icon>
                             <ArrowBackIosNewIcon />
                         </Icon>
                     </Box>
                 </Box>
-                <Box sx={{
-                    flexGrow: 1,
-                    flexBasis: 0,
-                    maxWidth: '100%',
-                    justifyContent: 'center',
-                    textAlign: 'center'
-                }}>
+                <Box sx={center}>
                     <span>{dateFns.format(state.currentMonth, 'MMM Y')}</span>
                 </Box>
-                <Box sx={{
-                    flexGrow: 1,
-                    flexBasis: 0,
-                    maxWidth: '100%',
-                    justifyContent: 'flex-end',
-                    textAlign: 'right'
-                }}>
+                <Box sx={end}>
                     <Box onClick={nextMonth} sx={{ cursor: 'pointer' }}>
                         <Icon>
                             <ArrowForwardIosIcon />
@@ -140,7 +113,7 @@ export default function Calendar() {
     return (
         <>
             {header()}
-            {monthDays()}
+            {week()}
             {cells()}
         </>
     )
