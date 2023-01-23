@@ -5,6 +5,7 @@ import Btn from "../buttons/Btn"
 import CardWrapper from "../Cards";
 import { gsap } from "gsap";
 import { useLayoutEffect, useRef } from 'react';
+import Calendar from '../Calendar';
 
 export default function Board() {
   /* eslint-disable no-unused-vars,no-empty-pattern*/
@@ -30,15 +31,22 @@ export default function Board() {
     <Container sx={{ height: '100vh', display: 'flex', alignItems: 'center' }} ref={parent}>
       <Grid container justifyContent="center" ref={ref}>
         <Grid item md={4}>
-          <CardWrapper sx={{ p: 3 }}>
+          <CardWrapper sx={{
+            p: 3, height: '100%',
+            borderTopRightRadius: 0,
+            borderBottomRightRadius: 0
+          }}>
             <Typography variant='h4' component='h4' color='primary.dark' textAlign='center' >
               Welcome {user.username}
             </Typography>
           </CardWrapper>
         </Grid>
         <Grid item md={8}>
-          <CardWrapper >
-
+          <CardWrapper sx={{
+            pt: 5, display: 'block', position: 'relative', borderTopLeftRadius: 0,
+            borderBottomLeftRadius: 0
+          }}>
+            <Calendar />
           </CardWrapper>
         </Grid>
       </Grid>

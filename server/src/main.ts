@@ -1,3 +1,4 @@
+import * as metadata from 'reflect-metadata';
 import * as cookieParser from 'cookie-parser';
 import { ValidationPipe } from '@nestjs/common';
 import { NestFactory, Reflector } from '@nestjs/core';

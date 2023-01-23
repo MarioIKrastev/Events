@@ -1,11 +1,12 @@
-import { User } from './auth.entity';
-export declare class Event {
-    id: string;
+export type EventType = {
     title: string;
     description: string;
     type: string;
     day: string;
     month: string;
     year: string;
-    user: User;
-}
+    user: {
+        username: string;
+        email: string;
+    };
+};

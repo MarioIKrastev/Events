@@ -11,46 +11,50 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
-var _a, _b;
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.EventsController = void 0;
 const common_1 = require("@nestjs/common");
+const decorators_1 = require("../common/decorators");
+const typeorm_1 = require("../typeorm");
+const dto_1 = require("./dto");
 const events_service_1 = require("./events.service");
-const create_event_dto_1 = require("./dto/create-event.dto");
-const update_event_dto_1 = require("./dto/update-event.dto");
 let EventsController = class EventsController {
     constructor(eventsService) {
         this.eventsService = eventsService;
     }
-    create(createEventDto) {
-        return this.eventsService.create(createEventDto);
+    postEvent(dto, user) {
+        return this.eventsService.postEvent(dto, user);
     }
-    findAll() {
-        return this.eventsService.findAll();
+    getAll() {
+        return this.eventsService.getAll();
     }
     findOne(id) {
         return this.eventsService.findOne(+id);
     }
-    update(id, updateEventDto) {
-        return this.eventsService.update(+id, updateEventDto);
+    update(id, dto) {
+        return this.eventsService.update(+id, dto);
     }
     remove(id) {
         return this.eventsService.remove(+id);
     }
 };
 __decorate([
-    (0, common_1.Post)(),
+    (0, decorators_1.Public)(),
+    (0, common_1.Post)('add'),
+    (0, common_1.HttpCode)(common_1.HttpStatus.OK),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [typeof (_a = typeof create_event_dto_1.CreateEventDto !== "undefined" && create_event_dto_1.CreateEventDto) === "function" ? _a : Object]),
+    __metadata("design:paramtypes", [dto_1.EventDto, typeorm_1.User]),
     __metadata("design:returntype", void 0)
-], EventsController.prototype, "create", null);
+], EventsController.prototype, "postEvent", null);
 __decorate([
-    (0, common_1.Get)(),
+    (0, decorators_1.Public)(),
+    (0, common_1.Get)('events'),
+    (0, common_1.HttpCode)(common_1.HttpStatus.OK),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", void 0)
-], EventsController.prototype, "findAll", null);
+], EventsController.prototype, "getAll", null);
 __decorate([
     (0, common_1.Get)(':id'),
     __param(0, (0, common_1.Param)('id')),
@@ -63,7 +67,7 @@ __decorate([
     __param(0, (0, common_1.Param)('id')),
     __param(1, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [String, typeof (_b = typeof update_event_dto_1.UpdateEventDto !== "undefined" && update_event_dto_1.UpdateEventDto) === "function" ? _b : Object]),
+    __metadata("design:paramtypes", [String, dto_1.EventDto]),
     __metadata("design:returntype", void 0)
 ], EventsController.prototype, "update", null);
 __decorate([

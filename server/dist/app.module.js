@@ -17,7 +17,6 @@ const typeorm_2 = require("typeorm");
 const config_1 = require("@nestjs/config");
 const typeorm_3 = require("./typeorm");
 const seeds_module_1 = require("./seeds/seeds.module");
-const mo_controller_1 = require("./s/mo/mo.controller");
 const events_module_1 = require("./events/events.module");
 let AppModule = class AppModule {
     constructor(dataSource) {
@@ -46,7 +45,6 @@ AppModule = __decorate([
             seeds_module_1.SeedsModule,
             events_module_1.EventsModule,
         ],
-        controllers: [mo_controller_1.MoController],
         providers: [],
     }),
     __metadata("design:paramtypes", [typeorm_2.DataSource])

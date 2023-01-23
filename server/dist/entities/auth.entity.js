@@ -63,11 +63,6 @@ __decorate([
     __metadata("design:type", String)
 ], User.prototype, "refreshToken", void 0);
 __decorate([
-    (0, typeorm_1.Column)({
-        name: 'events',
-        default: null,
-        array: true,
-    }),
     (0, typeorm_1.OneToMany)(() => event_entity_1.Event, (event) => event.user),
     __metadata("design:type", Array)
 ], User.prototype, "events", void 0);

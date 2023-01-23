@@ -42,6 +42,9 @@ __decorate([
         enum: enum_1.EventType,
         default: enum_1.EventType.DEFAULT
     }),
+    __metadata("design:type", String)
+], Event.prototype, "type", void 0);
+__decorate([
     (0, typeorm_1.Column)({
         name: 'day',
         nullable: false,
@@ -64,6 +67,7 @@ __decorate([
 ], Event.prototype, "year", void 0);
 __decorate([
     (0, typeorm_1.ManyToOne)(() => auth_entity_1.User, (user) => user.events),
+    (0, typeorm_1.JoinColumn)({ name: 'added_by' }),
     __metadata("design:type", auth_entity_1.User)
 ], Event.prototype, "user", void 0);
 Event = __decorate([
