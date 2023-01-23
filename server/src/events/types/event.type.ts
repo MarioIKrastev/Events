@@ -1,15 +1,9 @@
-export class EventDto {
+export type EventType = {
     title: string;
-
     description: string;
-
     type: string;
-
-    day:  string;
-
+    day: string;
     month: string;
-
     year: string;
-
-    user: {username: string; email: string}
+    user: { username: string; email: string; }
 }

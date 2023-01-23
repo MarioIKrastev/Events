@@ -7,7 +7,8 @@ import { AuthDto } from './dto';
 import { Tokens } from './types';
 import { JwtService } from '@nestjs/jwt';
 import { Response } from 'express';
-import { Result } from './types/result.type';
+import { Result } from './types';
+import { Event } from 'src/typeorm';
 
 @Injectable()
 export class AuthService {

@@ -1,16 +1,27 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, Req } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Event } from 'src/typeorm';
+import { Event, User } from 'src/typeorm';
 import { Repository } from 'typeorm';
 import { EventDto } from './dto';
+import { EventType } from './types'
 
 @Injectable()
 export class EventsService {
   constructor(
     @InjectRepository(Event) private eventRepository: Repository<Event>
-  ){}
-  postEvent(dto: EventDto) {
-    return 'This action adds a new event';
+  ) { }
+  async postEvent(dto: EventDto, user: User): Promise<EventType> {
+    const event = await this.eventRepository.create({
+      title: dto.title,
+      description: dto.description,
+      type: dto.type,
+      day: dto.day,
+      month: dto.month,
+      year: dto.year,
+      user,
+    })
+    await this.eventRepository.save(event);
+    return event;
   }
 
   getAll() {

@@ -4,7 +4,7 @@ import { AuthDto } from './dto';
 import { Tokens } from './types';
 import { JwtService } from '@nestjs/jwt';
 import { Response } from 'express';
-import { Result } from './types/result.type';
+import { Result } from './types';
 export declare class AuthService {
     private authRepository;
     private jwtService;

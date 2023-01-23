@@ -21,8 +21,18 @@ let EventsService = class EventsService {
     constructor(eventRepository) {
         this.eventRepository = eventRepository;
     }
-    postEvent(dto) {
-        return 'This action adds a new event';
+    async postEvent(dto, user) {
+        const event = await this.eventRepository.create({
+            title: dto.title,
+            description: dto.description,
+            type: dto.type,
+            day: dto.day,
+            month: dto.month,
+            year: dto.year,
+            user,
+        });
+        await this.eventRepository.save(event);
+        return event;
     }
     getAll() {
         return `This action returns all events`;

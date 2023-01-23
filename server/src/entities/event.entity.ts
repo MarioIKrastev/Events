@@ -27,7 +27,7 @@ export class Event {
         enum: EventType,
         default: EventType.DEFAULT
     })
-    type: EventType
+    type: string
 
     @Column({
         name: 'day',

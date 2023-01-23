@@ -1,4 +1,4 @@
-export declare class EventDto {
+export type EventType = {
     title: string;
     description: string;
     type: string;
@@ -9,4 +9,4 @@ export declare class EventDto {
         username: string;
         email: string;
     };
-}
+};

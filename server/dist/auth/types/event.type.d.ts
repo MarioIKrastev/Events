@@ -1,7 +1,6 @@
-export declare class EventDto {
+export type Event = {
     title: string;
     description: string;
-    type: string;
     day: string;
     month: string;
     year: string;
@@ -9,4 +8,4 @@ export declare class EventDto {
         username: string;
         email: string;
     };
-}
+};

@@ -1,6 +1,7 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete, HttpCode, HttpStatus, Res } from '@nestjs/common';
 import { Response } from 'express';
 import { Public } from 'src/common/decorators';
+import { User } from 'src/typeorm';
 import { EventDto } from './dto';
 import { EventsService } from './events.service';
 
@@ -9,10 +10,10 @@ export class EventsController {
   constructor(private eventsService: EventsService) { }
 
   @Public()
-  @Post('events/add')
+  @Post('add')
   @HttpCode(HttpStatus.OK)
-  postEvent(@Body() dto: EventDto) {
-    return this.eventsService.postEvent(dto);
+  postEvent(@Body() dto: EventDto, user: User) {
+    return this.eventsService.postEvent(dto,user);
   }
 
   @Public()

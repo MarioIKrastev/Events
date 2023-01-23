@@ -15,14 +15,15 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.EventsController = void 0;
 const common_1 = require("@nestjs/common");
 const decorators_1 = require("../common/decorators");
+const typeorm_1 = require("../typeorm");
 const dto_1 = require("./dto");
 const events_service_1 = require("./events.service");
 let EventsController = class EventsController {
     constructor(eventsService) {
         this.eventsService = eventsService;
     }
-    postEvent(dto) {
-        return this.eventsService.postEvent(dto);
+    postEvent(dto, user) {
+        return this.eventsService.postEvent(dto, user);
     }
     getAll() {
         return this.eventsService.getAll();
@@ -39,11 +40,11 @@ let EventsController = class EventsController {
 };
 __decorate([
     (0, decorators_1.Public)(),
-    (0, common_1.Post)('events/add'),
+    (0, common_1.Post)('add'),
     (0, common_1.HttpCode)(common_1.HttpStatus.OK),
     __param(0, (0, common_1.Body)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [dto_1.EventDto]),
+    __metadata("design:paramtypes", [dto_1.EventDto, typeorm_1.User]),
     __metadata("design:returntype", void 0)
 ], EventsController.prototype, "postEvent", null);
 __decorate([
