@@ -1,4 +1,5 @@
 import { Role } from 'src/enum';
+import { Event } from './event.entity';
 export declare class User {
     id: string;
     username: string;
@@ -6,4 +7,5 @@ export declare class User {
     email: string;
     password: string;
     refreshToken: string;
+    events: Event[];
 }

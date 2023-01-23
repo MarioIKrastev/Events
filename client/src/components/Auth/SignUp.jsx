@@ -1,17 +1,20 @@
 import { Box, Button, FormControl, Grid, Modal, TextField, Typography, useTheme } from "@mui/material";
-import { useState } from "react";
+import { useState, useRef, useLayoutEffect } from "react";
 import { useFormik } from 'formik'
 import { validate } from '../../utils/formValidator'
 import { initialValues } from '../../utils/initials'
 import { useAuthMutation } from "../../mutations/AuthMutation";
 import { useNavigate } from "react-router-dom";
 import { styles } from './styles'
+import { gsap } from "gsap";
 
 import Btn from "../buttons/Btn";
 import CardWrapper from "../Cards";
 import FormSpinner from "../spinners/FormSpinner";
 
 export default function SignUp() {
+  const parent = useRef();
+  const ref = useRef();
   const navigation = useNavigate();
   const theme = useTheme();
   const btn = { "&:hover": { backgroundColor: "transparent", color: '#FFF' }, p: 0, m: 0 };
@@ -37,6 +40,12 @@ export default function SignUp() {
       });
     },
   })
+  useLayoutEffect(() => {
+    const ctx = gsap.context(() => {
+      gsap.fromTo(ref.current, { scale: 1.3, opacity: 0 }, { scale: 1, opacity: 1, duration: .5 })
+    }, parent)
+    return () => ctx.revert();
+  }, [])
   return (
     <>
       <Btn text='Sign Up' sx={{ fontSize: '54px' }} variant='outlined' onClick={openHandler}/>
@@ -47,8 +56,8 @@ export default function SignUp() {
         aria-describedby="modal-modal-description"
         sx={{ alignItems: 'center', display: 'flex', maxWidth: '1440px', margin: '0 auto' }}
       >
-        <Grid container justifyContent="center">
-          <Grid item md={3} sx={styles.pseudoGrid}>
+        <Grid container justifyContent="center" >
+          <Grid item md={3} sx={styles.pseudoGrid} ref={ref}>
             {isLoading ? (<Box sx={{ display: 'flex' }} justifyContent="center"><FormSpinner color={theme.palette.primary.dark} bgcolor={theme.palette.primary.light} /></Box>) : (
               <>
                 {
@@ -60,7 +69,7 @@ export default function SignUp() {
                       <Btn text='Sign In' onClick={()=> navigation('/signin')}/>
                     </CardWrapper>
                   ) : (
-                    <CardWrapper>
+                    <CardWrapper >
                       <Box sx={{ display: 'flex', flexDirection: 'row' }} justifyContent='space-between'>
                         <Button
                           disableRipple
