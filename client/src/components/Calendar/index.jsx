@@ -28,7 +28,7 @@ export default function Calendar() {
 
         for (let i = 0; i < 7; i++) {
             days.push(
-                <List key={i} sx={{
+                <ListItem disablePadding={true} key={i} sx={{
                     flexGrow: 1,
                     flexBasis: 0,
                     maxWidth: '100%',
@@ -36,10 +36,10 @@ export default function Calendar() {
                     textAlign: 'center'
                 }}>
                     {dateFns.format(dateFns.addDays(startDay, i), dayFormat)}
-                </List>
+                </ListItem>
             )
         }
-        return <ListItem sx={{
+        return <List sx={{
             mb: 3,
             p: 0,
             display: "flex",
@@ -48,7 +48,7 @@ export default function Calendar() {
             width: "100%",
             textTransform: 'uppercase',
             fontSize: '14px',
-        }}>{days}</ListItem>
+        }}>{days}</List>
     }
 
     function cells() {
@@ -70,12 +70,12 @@ export default function Calendar() {
                 const cloneDay = day;
 
                 days.push(
-                    <ListItem>
+                    <ListItem disablePadding={true}>
                         <Button key={day} variant='outlined' color='secondary' sx={{
                             flexGrow: 1,
                             flexBasis: 0,
                             maxWidth: '100%',
-
+                            borderRadius: 0,
                         }}>
                             <span>{formattedDay}</span>
                         </Button>
@@ -84,20 +84,17 @@ export default function Calendar() {
                 day = dateFns.addDays(day, 1);
             }
             rows.push(
-                <List key={day} sx={{ display: 'flex', flexDirection: 'row' }}>
+                <List disablePadding={true} key={day} sx={{ display: 'flex', flexDirection: 'row' }}>
                     {days}
                 </List>
             );
             days = [];
         }
-        return <Box sx={{ zIndex: 4 }}>{rows}</Box>
+        return <Box disablePadding={true} sx={{ zIndex: 4 }}>{rows}</Box>
     }
 
 
     function header() {
-        const dateFormat = 'MMM Y';
-
-
         return (
             <Box sx={{ display: 'flex', flexDirection: 'row', mb: 3 }}>
                 <Box sx={{
@@ -120,7 +117,7 @@ export default function Calendar() {
                     justifyContent: 'center',
                     textAlign: 'center'
                 }}>
-                    <span>{dateFns.format(state.currentMonth, dateFormat)}</span>
+                    <span>{dateFns.format(state.currentMonth, 'MMM Y')}</span>
                 </Box>
                 <Box sx={{
                     flexGrow: 1,
@@ -136,7 +133,6 @@ export default function Calendar() {
                     </Box>
                 </Box>
             </Box>
-
         )
     }
 
