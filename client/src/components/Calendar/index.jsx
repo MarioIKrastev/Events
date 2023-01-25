@@ -11,7 +11,8 @@ import { styles } from './styles';
 
 export default function Calendar() {
     const { cell, start, center, end, weekDays, weekDay } = styles;
-    
+    const gradientColor = 'linear-gradient(0deg, rgba(115,161,199,0.8) 5%, rgba(43,109,163,0.8) 80%);';
+
     const theme = useTheme();
     const timeZone = 'Europe/Sofia';
     const [state, setState] = useState({
@@ -63,9 +64,9 @@ export default function Calendar() {
 
                 days.push(
                     <ListItem disablePadding={true} sx={{ minHeight: '6em' }} key={i}>
-                        <Button key={day} variant='outlined' sx={[cell,{
+                        <Button key={day} variant='outlined' onClick={() => console.log(day, cloneDay)} sx={[cell,{
                             color: `${!dateFns.isSameMonth(day, startMonth) ? theme.palette.primary.dark : theme.palette.secondary.main}`,
-                            background: `${!dateFns.isSameMonth(day, startMonth) ? 'linear-gradient(0deg, rgba(115,161,199,0.8) 5%, rgba(43,109,163,0.8) 80%);' : dateFns.isSameDay(day, selectedDate) ? 'rgba(255, 255, 255, 0.3)' : "" } `,
+                            background: `${!dateFns.isSameMonth(day, startMonth) ? gradientColor : dateFns.isSameDay(day, selectedDate) ? 'rgba(255, 255, 255, 0.3)' : "" } `,
                             borderColor: `${dateFns.isSameDay(day, selectedDate) ? 'rgba(255,255,255)' : '' }`
                         }]}>
                             <span style={{ alignSelf: 'end' }}>{formattedDay}</span>

@@ -77,7 +77,7 @@ export default function SignUp() {
                           onClick={() => { setOpen(false); reset(); formik.resetForm() }}>
                           Close
                         </Button>
-                        {isError && <Typography variant="body1" component="p" color={theme.palette.error.main}>
+                        {isError && <Typography variant="body1" component="p" color='red'>
                           Email is already in use
                         </Typography>}
                       </Box>
