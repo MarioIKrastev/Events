@@ -22,20 +22,12 @@ let EventsService = class EventsService {
         this.eventRepository = eventRepository;
     }
     async postEvent(dto, user) {
-        const event = await this.eventRepository.create({
-            title: dto.title,
-            description: dto.description,
-            type: dto.type,
-            day: dto.day,
-            month: dto.month,
-            year: dto.year,
-            user,
-        });
+        const event = await this.eventRepository.create(Object.assign(Object.assign({}, dto), { user }));
         await this.eventRepository.save(event);
         return event;
     }
-    getAll() {
-        return `This action returns all events`;
+    async getAll() {
+        return await this.eventRepository.find({ relations: ['user'] });
     }
     findOne(id) {
         return `This action returns a #${id} event`;
@@ -43,8 +35,13 @@ let EventsService = class EventsService {
     update(id, dto) {
         return `This action updates a #${id} event`;
     }
-    remove(id) {
-        return `This action removes a #${id} event`;
+    async remove(id) {
+        try {
+            return await this.eventRepository.delete(id);
+        }
+        catch (error) {
+            throw new Error(error.message);
+        }
     }
 };
 EventsService = __decorate([

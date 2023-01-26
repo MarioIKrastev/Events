@@ -124,7 +124,8 @@ theme = createTheme(theme, {
           top: '2.5rem',
           bottom: '-1rem',
           margin: 0,
-          color: '#FE6A4C'
+          fontSize: '1rem',
+          color: 'red'
         }
       }
     },

@@ -14,7 +14,7 @@ export default function SignIn() {
   const navigate = useNavigate();
   const { mutate, isError, isLoading } = useAuthMutation('signin');
    /* eslint-disable no-unused-vars */ 
-  const [_, setCookie] = useCookies(['Bearer']);
+  const [_, setCookie] = useCookies(['Authorization']);
   
   const formik = useFormik({
     initialValues: initialValues.signIn,
@@ -22,7 +22,7 @@ export default function SignIn() {
     onSubmit: (values) => {
        mutate(values, {
         onSuccess: async (res) => {
-          setCookie('Bearer', res.data.access_token , {path: '/', maxAge: 3600})
+          setCookie('Authorization', `Bearer=${res.data.access_token}` , {path: '/', maxAge: 3600})
           return navigate('/home');
         },
         onError: (res) => {
@@ -32,7 +32,6 @@ export default function SignIn() {
     }
   });
   return (
-    // <Btn text="Sign In" />
     <>
       <Container sx={{ height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', }}>
         <Grid container justifyContent='center'>

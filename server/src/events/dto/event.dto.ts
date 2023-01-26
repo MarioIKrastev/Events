@@ -10,6 +10,4 @@ export class EventDto {
     month: string;
 
     year: string;
-
-    user: {username: string; email: string}
 }

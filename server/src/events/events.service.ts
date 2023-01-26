@@ -3,29 +3,23 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Event, User } from 'src/typeorm';
 import { Repository } from 'typeorm';
 import { EventDto } from './dto';
-import { EventType } from './types'
 
 @Injectable()
 export class EventsService {
   constructor(
     @InjectRepository(Event) private eventRepository: Repository<Event>
   ) { }
-  async postEvent(dto: EventDto, user: User): Promise<EventType> {
+  async postEvent(dto: EventDto, user: User) {
     const event = await this.eventRepository.create({
-      title: dto.title,
-      description: dto.description,
-      type: dto.type,
-      day: dto.day,
-      month: dto.month,
-      year: dto.year,
+      ...dto,
       user,
     })
     await this.eventRepository.save(event);
     return event;
   }
 
-  getAll() {
-    return `This action returns all events`;
+  async getAll() {
+    return await this.eventRepository.find({relations:['user']});
   }
 
   findOne(id: number) {
@@ -36,7 +30,13 @@ export class EventsService {
     return `This action updates a #${id} event`;
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} event`;
+  async remove(id: number) {
+    try {
+      
+      return await this.eventRepository.delete(id)
+    } catch (error) {
+      throw new Error(error.message);
+      
+    }
   }
 }

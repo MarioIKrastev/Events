@@ -49,16 +49,10 @@ export class AuthService {
       },
     });
     const isMatched = await bcrypt.compare(dto.password, user.password);
-    const payload = {
-      id: user.id,
-      username: user.username,
-      email: user.email,
-    };
     if (!user || !isMatched) {
       res.status(400).json({ message: 'Sign in failed! Please try again.' });
     } else {
       const tokens = await this.getTokens(user.id, user.email, user.username);
-      res.cookie('Bearer', payload);
       await this.updateRtHash(user.id, tokens.refresh_token);
       return tokens;
     }
@@ -102,7 +96,6 @@ export class AuthService {
   hashData(data: string) {
     return bcrypt.hashSync(data, 10);
   }
-
   async getTokens(userId: string, email: string, username: string) {
     const [at, rt] = await Promise.all([
       await this.jwtService.signAsync(

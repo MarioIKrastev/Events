@@ -7,10 +7,10 @@ export declare class AuthController {
     constructor(authService: AuthService);
     signInLocal(dto: AuthDto, res: Response): Promise<Tokens>;
     signUpLocal(dto: AuthDto, res: Response): Promise<Tokens>;
-    logout(res: Response, id: string): Promise<{
+    logout(id: string): Promise<{
         message: string;
     }>;
-    deleteLocalUser(res: Response, req: Request, id: string): Promise<import("./types").Result>;
+    deleteLocalUser(id: string): Promise<import("./types").Result>;
     refreshToken(req: Request, id: string): Promise<{
         access_token: string;
         refresh_token: string;

@@ -5,5 +5,4 @@ export type EventType = {
     day: string;
     month: string;
     year: string;
-    user: { username: string; email: string; }
 }

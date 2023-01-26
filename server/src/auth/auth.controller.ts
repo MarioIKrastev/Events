@@ -42,10 +42,9 @@ export class AuthController {
   @Post('logout')
   @HttpCode(HttpStatus.OK)
   async logout(
-    @Res({ passthrough: true }) res: Response,
+    @Res({ passthrough: true })
     @User('id') id: string,
   ) {
-    res.clearCookie('Bearer');
     return await this.authService.logout(id);
   }
   @Public()
@@ -53,11 +52,9 @@ export class AuthController {
   @Delete('local/user/:id')
   @HttpCode(HttpStatus.OK)
   async deleteLocalUser(
-    @Res({ passthrough: true }) res: Response,
-    @Req() req: Request,
+    @Res({ passthrough: true })
     @Param('id') id: string,
   ) {
-    res.clearCookie('Bearer');
     return await this.authService.deleteLocalUser(id);
   }
 

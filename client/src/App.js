@@ -13,10 +13,10 @@ import SignIn from "./components/Auth/SignIn";
 
 function App() {
   const queryClient = new QueryClient();
-  const [cookies] = useCookies(['Bearer']);
+  const [cookies] = useCookies(['Authorization']);
   const [isAuth, setisAuth] = useState(false);
   useEffect(() => {
-    if (cookies.Bearer) {
+    if (cookies.Authorization) {
       setisAuth(true)
     }
   }, [cookies])

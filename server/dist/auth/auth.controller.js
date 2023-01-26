@@ -28,12 +28,10 @@ let AuthController = class AuthController {
     async signUpLocal(dto, res) {
         return await this.authService.signUpLocal(dto, res);
     }
-    async logout(res, id) {
-        res.clearCookie('Bearer');
+    async logout(id) {
         return await this.authService.logout(id);
     }
-    async deleteLocalUser(res, req, id) {
-        res.clearCookie('Bearer');
+    async deleteLocalUser(id) {
         return await this.authService.deleteLocalUser(id);
     }
     async refreshToken(req, id) {
@@ -65,9 +63,9 @@ __decorate([
     (0, common_1.Post)('logout'),
     (0, common_1.HttpCode)(common_1.HttpStatus.OK),
     __param(0, (0, common_1.Res)({ passthrough: true })),
-    __param(1, (0, decorators_1.User)('id')),
+    __param(0, (0, decorators_1.User)('id')),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object, String]),
+    __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", Promise)
 ], AuthController.prototype, "logout", null);
 __decorate([
@@ -76,10 +74,9 @@ __decorate([
     (0, common_1.Delete)('local/user/:id'),
     (0, common_1.HttpCode)(common_1.HttpStatus.OK),
     __param(0, (0, common_1.Res)({ passthrough: true })),
-    __param(1, (0, common_1.Req)()),
-    __param(2, (0, common_1.Param)('id')),
+    __param(0, (0, common_1.Param)('id')),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [Object, Object, String]),
+    __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", Promise)
 ], AuthController.prototype, "deleteLocalUser", null);
 __decorate([
