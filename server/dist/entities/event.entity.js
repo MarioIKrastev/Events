@@ -11,7 +11,6 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.Event = void 0;
 const typeorm_1 = require("typeorm");
-const enum_1 = require("../enum");
 const auth_entity_1 = require("./auth.entity");
 let Event = class Event {
 };
@@ -38,9 +37,7 @@ __decorate([
 __decorate([
     (0, typeorm_1.Column)({
         name: 'event-type',
-        type: 'enum',
-        enum: enum_1.EventType,
-        default: enum_1.EventType.DEFAULT
+        nullable: true,
     }),
     __metadata("design:type", String)
 ], Event.prototype, "type", void 0);
@@ -66,8 +63,7 @@ __decorate([
     __metadata("design:type", String)
 ], Event.prototype, "year", void 0);
 __decorate([
-    (0, typeorm_1.ManyToOne)(() => auth_entity_1.User, (user) => user.events),
-    (0, typeorm_1.JoinColumn)({ name: 'added_by' }),
+    (0, typeorm_1.ManyToOne)(type => auth_entity_1.User, (user) => user.events),
     __metadata("design:type", auth_entity_1.User)
 ], Event.prototype, "user", void 0);
 Event = __decorate([

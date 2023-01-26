@@ -45,6 +45,6 @@ export class User {
   })
   refreshToken: string;
 
-  @OneToMany(() => Event, (event) => event.user)
+  @OneToMany(type => Event, (event: Event) => event.user)
   events: Event[];
 }

@@ -5,8 +5,4 @@ export declare class EventDto {
     day: string;
     month: string;
     year: string;
-    user: {
-        username: string;
-        email: string;
-    };
 }

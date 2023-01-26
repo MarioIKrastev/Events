@@ -23,9 +23,7 @@ export class Event {
 
     @Column({
         name: 'event-type',
-        type: 'enum',
-        enum: EventType,
-        default: EventType.DEFAULT
+        nullable: true,
     })
     type: string
 
@@ -45,9 +43,8 @@ export class Event {
         name: 'year',
         nullable: false,
     })
-    year: string
+    year: string 
 
-    @ManyToOne(() => User, (user) => user.events)
-    @JoinColumn({ name: 'added_by' })
+    @ManyToOne(type => User, (user: User) => user.events)
     user: User
 }
